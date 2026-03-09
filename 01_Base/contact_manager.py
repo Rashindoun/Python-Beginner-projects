@@ -1,5 +1,5 @@
 contacts= {
-    "contact1":{
+    "contact3":{
         "name":"bob",
         "numéro de téléphone":"06 65 76 89 99",
         "email":"bob@gmail.com",
@@ -11,7 +11,7 @@ contacts= {
         "email":"Alice@gmail.com",
         "pays":"Allemagne"
     },
-    "contact3":{
+    "contact1":{
         "name":"sam",
         "numéro de téléphone":"03 32 55 67 77",
         "email":"sam@gmail.com",
@@ -29,19 +29,37 @@ def add_contacts():
         else:
             print("numéro de téléphone non pris en charge (nb de caractère)") 
             continue
-        choix=input("es ce que vous voulez ajouter : "+ new_contacts_name+" au numéro "+ new_contacts_phone_num +" (O/n): ")
-        if choix == "O" or choix == "o":
-            contacts[f"contact{n}"]["name"]=new_contacts_name
-            contacts[f"contact{n}"]["numéro de téléphone"]=new_contacts_phone_num
-            print(new_contacts_name,"a bien été ajouté")
-        elif choix == "n" or choix == "N":
-            print(new_contacts_name,"n'a pas été ajouté")
+        choice=input(f"es ce que vous voulez ajouter: {new_contacts_name} au numéro {new_contacts_phone_num} (O/n): ")
+        if choice == "O" or choix == "o":
+            dict_temp = {
+                f"contact{n}":{
+                    "name":new_contacts_name,
+                    "numéro de téléphone":new_contacts_phone_num
+                }
+            }
+            new_dict = dict_temp | contacts
+            contacts = new_dict | contacts
+            #contacts[f"contact{n}"]["name"]=new_contacts_name
+            #contacts[f"contact{n}"]["numéro de téléphone"]=new_contacts_phone_num
+            print(f"{new_contacts_name} a bien été ajouté")
+        elif choice == "n" or choix == "N":
+            print(f"{new_contacts_name} n'a pas été ajouté")
         print("*"*10)
-        more_information_choice = input(f"vous les vous ajouter plus d'information vis-à-vis de f{new_contacts_name} ? (O/n): ")
+        more_information_choice = input(f"vous les vous ajouter plus d'information vis-à-vis de {new_contacts_name} ? (O/n): ")
         if more_information_choice == "O" or more_information_choice == "o":
-            new_contacts_email = input("quel est l'email de ",new_contacts_name," : ")
-            new_contacts_pays = input ("quel est le pays de résidence de ",new_contacts_name," : ")
-            print(new_contacts_name," a pour email : ",new_contacts_email," et pour pays de résidence : ",new_contacts_pays)
+            more_information_choice_email = input("voulez vous ajoutez un email ? (O/n) : ")
+            if more_information_choice_email == "O" or more_information_choice_email == "o": 
+                new_contacts_email = input(f"quel est l'email de {new_contacts_name} : ")
+                contacts[f"contacts{n}"]["email"] = new_contacts_email
+            else:
+                pass
+            more_information_choice_contry = input("voulez vous ajoutez un pays ? (O/n) : ")
+            if more_information_choice_contry == "O" or more_information_choice_contry == "o":
+                new_contacts_contry = input (f"quel est le pays de résidence de {new_contacts_name} : ")
+                contacts[f"contacts{n}"]["pays"] = new_contacts_contry
+            else:
+                pass
+            print(f"{new_contacts_name} a pour email : {new_contacts_email} et pour pays de résidence : {new_contacts_pays}")
         choix = input("voulez vous ajoutez d'autre personne ? (O/n): ")
         if choix == "O" or choix == "o":
             continue
