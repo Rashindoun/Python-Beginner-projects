@@ -1,36 +1,9 @@
-contacts= {
-    "bob":{
-        "numéro de téléphone":"06 65 76 89 99",
-        "email":"bob@gmail.com",
-        "pays":"France"
-    },
-    "alice":{
-        "numéro de téléphone":"08 77 88 32 11",
-        "email":"Alice@gmail.com",
-        "pays":"Allemagne"
-    },
-    "sam":{
-        "numéro de téléphone":"03 32 55 67 77",
-        "email":"sam@gmail.com",
-        "pays":"grande bretagne"
-    },
-    "micheal":{
-        "numéro de téléphone":"11 78 55 34 87",
-        "email":"michael@gmail.com",
-        "pays":"suisse"
-    },
-    "george":{
-        "numéro de téléphone":"15 98 00 30 23",
-        "email":"george@gmail.com",
-        "pays":"canada"
-    }
-}
-
+import json
 
 def add_contacts():
-    global contacts
-    global contacts_name
     while True:
+        global contacts
+        global contacts_name
         new_contacts_name = input("quel est le nom de se contacts: ")
         if new_contacts_name not in contacts_name:
             new_contacts_phone_num =input("quel est le numéro de téléphone de ce contacts: ")
@@ -41,7 +14,7 @@ def add_contacts():
                 continue
             choice=input(f"es ce que vous voulez ajouter: {new_contacts_name} au numéro {new_contacts_phone_num} (O/n): ")
             if choice == "O" or choice == "o":
-                contacts[f"{new_contacts_name}"] = {"numéro de téléphone":new_contacts_phone_num} 
+                contacts[f"{new_contacts_name}"] = {"phone number":new_contacts_phone_num} 
                 print(f"{new_contacts_name} a bien été ajouté")
             elif choice == "n" or choice == "N":
                 print(f"{new_contacts_name} n'a pas été ajouté")
@@ -100,14 +73,14 @@ def show_contacts():
             add_contacts()
         elif choix == "n":
             print("domages peut etre une prochaine fois")
-            break
+            
 
 def search_contacts():
     while True:
         if len(contacts) > 0:
             search = input("quel est le nom du contact que vous voulez cherchez : ")
             if search in contacts_name:
-                print(f"voicit les info de ce contact: {search} , {contacts[f"{search}"]["numéro de téléphone"]} , {contacts[f"{search}"]["email"]} , {contacts[f"{search}"]["pays"]}")
+                print(f"voicit les info de ce contact: nom: {search} , num: {contacts[f"{search}"]["phone number"]} , email: {contacts.get(f"{search}").get("email",None)} , pays: {contacts.get(f"{search}").get("pays",None)}")
                 break
             else:
                 print("ce contact n'existe pas")
@@ -121,33 +94,45 @@ def search_contacts():
                 print("domages peut etre une prochaine fois")
                 break
         break    
-        
+
+def export():
+    json_dict = json.dumps(contacts,indent = 4)
+    with open("save_contacts.json" , "w+") as file:
+        file.write(json_dict)
+
+def import_dict():
+    with open('save_contacts.json' , "r") as file:
+        contacts = json.load(file)
+    return contacts
 
 def menu():
-    print("*"*38)
-    print("*"*5+"  gestion de vos contacts  "+"*"*5)
-    print("*"*38)
-    print("1: ajouter un contact")
-    print("2: supprimer un contact")
-    print("3: montrer vos contacts")
-    print("4: chercher un contact")
-    print("5: quitter le gestionnaire de contacts")
-    print("*"*38)
-    choix = int(input("qu'es ce que vous voulez faire (1-5): "))
-    print("*"*38)
-    if choix == 1:
-        add_contacts()
-    elif choix == 2:
-        del_contacts()
-    elif choix == 3:
-        show_contacts()
-    elif choix == 4:
-        search_contacts()
-    elif choix == 5:
-        print("A une prochaine fois!")
-        return
+    while True:
+        global contacts
+        global contacts_name
+        contacts = import_dict()
+        contacts_name = list(contacts.keys())
+        print("*"*38)
+        print("*"*5+"  gestion de vos contacts  "+"*"*5)
+        print("*"*38)
+        print("1: ajouter un contact")
+        print("2: supprimer un contact")
+        print("3: montrer vos contacts")
+        print("4: chercher un contact")
+        print("5: quitter le gestionnaire de contacts")
+        print("*"*38)
+        choix = int(input("qu'es ce que vous voulez faire (1-5): "))
+        print("*"*38)
+        if choix == 1:
+            add_contacts()
+        elif choix == 2:
+            del_contacts()
+        elif choix == 3:
+            show_contacts()
+        elif choix == 4:
+            search_contacts()
+        elif choix == 5:
+            print("A une prochaine fois!")
+            break
+        export()
 
-
-while True:
-    contacts_name = list(contacts.keys())
-    menu()
+menu()

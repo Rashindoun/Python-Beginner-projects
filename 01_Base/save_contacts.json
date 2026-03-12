@@ -1,0 +1,32 @@
+{
+    "bob": {
+        "phone number": "06 65 76 89 99",
+        "email": "bob@gmail.com",
+        "pays": "France"
+    },
+    "alice": {
+        "phone number": "08 77 88 32 11",
+        "email": "Alice@gmail.com",
+        "pays": "Allemagne"
+    },
+    "sam": {
+        "phone number": "03 32 55 67 77",
+        "email": "sam@gmail.com",
+        "pays": "grande bretagne"
+    },
+    "micheal": {
+        "phone number": "11 78 55 34 87",
+        "email": "michael@gmail.com",
+        "pays": "suisse"
+    },
+    "george": {
+        "phone number": "15 98 00 30 23",
+        "email": "george@gmail.com",
+        "pays": "canada"
+    },
+    "kylian": {
+        "phone number": "09 98 89 76 67",
+        "email": "kylian.com",
+        "pays": "russie"
+    }
+}
