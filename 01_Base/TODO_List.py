@@ -1,4 +1,5 @@
 import time 
+import json
 
 tasks = ["Dev TODO list en python","faire le repassage","faire a manger","abandonner le projet git en python"]
 
@@ -58,6 +59,14 @@ def modify_task():
             print(f"le format de réponse réponse n'est pas bon: {choice}")
             continue
         break
+
+def export():
+    save = task
+    with open("save_task.json" , "w+") as file:   
+        file.write(save)
+def import_task():
+    with open("save_task.json" , "r+") as file:
+        
 
 def menu():
     while True:
