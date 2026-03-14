@@ -11,6 +11,7 @@ def scraping_alert_cert_fr():
             alerts_cert = alerts_cert_fr[i]
             alerts_cert_title = alerts_cert.find_all("a")
             alerts_date = alerts_cert.find("span",class_ = "item-date")
+            print(alerts_cert_title)
             alerts_title = alerts_cert_title[1]
             alerts_title = alerts_title.get_text()
             alerts_date = alerts_date.get_text()
