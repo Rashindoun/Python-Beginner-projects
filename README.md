@@ -1,4 +1,4 @@
-# About Python-Beginner-projects:
+# About Python_Beginner_projects:
 
 it's a repository for host my personnal small project
 to learn python and github.
