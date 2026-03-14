@@ -1,10 +1,11 @@
 import requests
+import subprocess
 from bs4 import BeautifulSoup
 
 def get_arch_news():
-    responce = requests.get("https://archlinux.org/news/")
-    html = responce.text
-    if responce.status_code == 200:
+    response = requests.get("https://archlinux.org/news/")
+    html = response.text
+    if response.status_code == 200:
         n = 1
         soup = BeautifulSoup(html, "html.parser")
         arch_news_content = soup.find_all("tr", limit = 4)
@@ -17,8 +18,16 @@ def get_arch_news():
             news_date = news_date.get_text()
             print(f"{n}. {news_title} publié le {news_date}")
             n = n+1
-    elif responce.status_code != 200:
-        print(f"nous avons rencontrer une erreur dans le chargement de la page ({responce.status_code})")
+        choice = input("vous les vous mettre à jour votre system ?(O/n): ")
+        if choice == "O":
+            subprocess.run(["bash" , "/home/Samuel/Documents/Python_Beginner_projects/3_automatisation/arch_update_automatisation/update_arch.sh"] )
+            print("la mise a jour est finis")
+        elif choice == "n":
+            print("la mise ne vas pas etre excuté ")
+        else:
+            print("format de réponse non pris en charge")
+    elif response.status_code != 200:
+        print(f"nous avons rencontrer une erreur dans le chargement de la page ({response.status_code})")
     else:
         print("nous avons rencontrer une erreur externe au chargement de la pages")
 
