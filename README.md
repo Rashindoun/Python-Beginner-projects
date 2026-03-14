@@ -7,3 +7,4 @@ to learn python and github.
 
 * **/01_base** : very basic program to learn basic concept in python (function , variable , condition , dictionnary ,ect)
 * **/02_web-scrapping** : simple script which use some library (likes request , bs4 , ect)
+* **/03_automation** : simple program to automation some aspect of my daily life
